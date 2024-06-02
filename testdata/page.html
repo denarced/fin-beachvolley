@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!--[if IE 7]><html class="ie ie7 home" lang="FI"><![endif]-->
+<!--[if IE 8]><html class="ie ie8 home" lang="FI"><![endif]-->
+<!--[if IE 9]><html class="ie ie9 home" lang="FI"><![endif]-->
+<!--[if gt IE 9]><!--><html lang="FI" class="beachvolley"><!--<![endif]-->
+<head>
+  <title>Otteluohjelma ja tulospalvelu - Lentopalloliitto Beach volley</title>            
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="keywords" content="Lentopalloliitto, Beach volley" />
+  <meta property="og:title" content="Etusivu"/>
+  <meta property="og:description" content="Beach volley on yksi kesän suosittuja ajanviettotapoja kaikenikäisten keskuudessa, mielenkiintoinen kilpailulaji ja myös näkyvä laji tiedotusvälineissä. Beach volleyn Aikuisten SM-kiertue on vakiintunut, tasokas kilpailusarja, joka tarjoaa pelaajille hienoja ja hyvin järjestettyjä turnauksia sekä katsojille paljon nähtävää paikan päällä. SM-kiertueen lisäksi ranking-pisteitä voi kerätä Avoimen kiertueen osakilpailuista." />
+  <meta property="og:image" content="/images/beach_logo.png" />
+  <meta property="og:url" content="http://www.beachvolley.fi/"/>
+  <meta property="og:site_name" content="Lentopalloliitto Beach volley" />
+  <meta property="og:type" content="website"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/ico57x57.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/ico114x114.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/oco72x72.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/ico144x144.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/ico60x60.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/ico120x120.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/ico76x76.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/ico152x152.png" />
+  <link rel="icon" type="image/png" href="/images/ico16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/images/ico32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/images/ico96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/images/ico160x160.png" sizes="160x160" />
+  <meta name="msapplication-TileColor" content="#2b5797" />
+  <meta name="msapplication-TileImage" content="/media/layout/images/favicons/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="/media/layout/images/favicons/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="/media/layout/images/favicons/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="/media/layout/images/favicons/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="/media/layout/images/favicons/mstile-310x310.png" />
+
+<!--  <link href="//www.powercup.info/media/layout/fancybox/source/jquery.fancybox.css" rel="stylesheet" media="screen" />-->
+        <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed:300,400,700|Barlow:300,700" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <link href='//fonts.googleapis.com/css?family=Bitter:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script src="/taso/taso.js"></script>
+        <script src="/dd/cssmenu/script.js"></script>
+        <link href='/dd/cssmenu/styles.css' rel='stylesheet' type='text/css'>
+  <link href="/beachvolley.css?t=1628158397" rel="stylesheet" media="screen" />
+<style>
+@media only screen and (max-width: 900px) {
+  #cssmenu ul li a, #cssmenu ul ul li a { 
+  padding-top:4px;
+  padding-bottom:4px;
+  }
+}
+</style>
+<script>
+$(function(){
+  $(".level2.hasSubItems").hide();
+  $(".level2[rel='ryhma-']").show();
+
+  $(".level1").on("click",function(){
+    $(".level2.hasSubItems").hide();
+    var ryhma=$(this).prop('id');
+    $(".level2[rel='"+ryhma+"']").toggle("fast");
+  });
+  
+  var heheight=0;
+
+  function fixedHeader()
+  {
+    if(heheight==0)
+      heheight=document.getElementsByClassName('header')[0].offsetHeight+document.getElementsByClassName('header')[0].offsetTop;
+    if ($(window).scrollTop() >= 190 && $(window).width() >= 1024) {
+      $('#cssmenu').addClass('sticky');
+      $('#content').css('padding-top','44px');
+    }
+    else if($(window).scrollTop() >= heheight && $(window).width() < 1024){
+      $('.main-wrapper').addClass('mobsticky');
+      
+    }
+    else {
+      $('.mobsticky').removeClass('mobsticky');
+      $('#cssmenu').removeClass('sticky');
+      $("#loginform").removeClass("moved");
+      $("#loginform").css("position","static");
+      $('#content').css('padding-top','');
+    }
+  }
+
+  $(window).scroll(function(){
+    fixedHeader();
+  });
+
+  $("#menulogin").on("click", function() {
+    var rt = ($(window).width() - ($("#cssmenu").offset().left + $("#cssmenu").outerWidth()));
+    if($("#loginform").hasClass("moved")){
+      $("#loginform").removeClass("moved");
+      $("#loginform").css("position","static");
+    }
+    else {
+      $("#loginform").addClass("moved");
+      $("#loginform").css("position","fixed");
+      $("#loginform").css("top",46);
+      $("#loginform").css("right",rt);
+    }
+  });
+
+/*  $("a").each(function() {
+    var href = $(this).prop("href");
+    var str = "?";
+    if(href.indexOf('?') >= 0) {
+      str = "&";
+    }
+    href = href + str + "dev=1";
+    $(this).prop("href",href);
+  });*/
+});
+</script>
+</head>
+
+<body class="subpage"><a name="top"></a>
+<div id="wrapper">
+<div class="top">
+<div class="wawes">
+  <div class="main" id="mainheader">
+    <div id="header">
+<div class="headercontent">
+<div id="loginform"
+    
+>
+      <!--<input type="submit" value="Kirjaudu" onclick='window.open("https://torneopal.lentopallo.fi/taso/login.php?sso=1");return false;'/>-->
+    
+    <form method='post' action='/taso/pelaajalogin.php' id='headerlogin'>
+      <input type='hidden' name='onjo' value='1' />
+      <input type='hidden' name='kirjaudu' value='1' />
+      <label>Sähköposti</label><input type='email' name='email' /><br/>
+      <label>Salasana</label><input type='password' name='passw' id='passw' /><br/>
+      <div class='btn2 confirm'><a href='/taso/pelaajalogin.php?rek=1'>Rekisteröidy</a></div>
+      <input type="submit" value="Kirjaudu" />
+    </form>
+    <button id='pienikirjaudu' onclick='$("#headerlogin").show();this.style.display="none";document.getElementsByName("email")[0].focus();'>Kirjaudu</button>
+   
+  </div>
+      <div class="lpllogo">
+      <a href="https://www.lentopallo.fi/beach-volley/" target="_blank" id="logo"><img src="/images/beachlogo.png" alt="Lentopalloliitto Beach volley" style='height:80px'></a></div>
+      <div class="header" style="z-index:-900;">
+<ul id="langSelection">
+<li id="selectLang-FI" class="first current active">
+<a href="//beachvolley.torneopal.fi/index.php?kieli=fi" class="languageImage"><img src="https://cdn.torneopal.net/taso/flag/fi.png" /></a>
+<a href="//beachvolley.torneopal.fi/index.php?kieli=fi" class="languageText">Suomeksi</a></li><li id="selectLang-EN" class="last">
+<a href="//beachvolley.torneopal.fi/index.php?kieli=en" class="languageImage"><img src="https://cdn.torneopal.net/taso/flag/en.png" /></a>
+<a href="//beachvolley.torneopal.fi/index.php?kieli=en" class="languageText">In English</a></li>
+</ul>
+                          <span><a href="/">Beach Volley 2024</a></span>
+                        </div>
+  <div class="main-wrapper">
+    <div class="main">  
+      <div id="content" class="box">
+<div id='cssmenu'>
+  <ul>
+<!--    <li id='logotitle'>Beach 2022</li>-->
+    <li><a href="/">Tulospalvelu</a></li>
+    <li><a href="/taso/live.php">Live</a></li>
+<li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Masters</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=7">Ranking</a></li><li><a href="/taso/sarja.php?sarja=M35">Masters miehet 35 28.7.</a></li><li><a href="/taso/sarja.php?sarja=M40">Masters miehet 40 27.7.</a></li><li><a href="/taso/sarja.php?sarja=M45">Masters miehet 45 28.7.</a></li><li><a href="/taso/sarja.php?sarja=M50">Masters miehet 50 27.7.</a></li><li><a href="/taso/sarja.php?sarja=M55">Masters miehet 55 28.7.</a></li><li><a href="/taso/sarja.php?sarja=M60">Masters miehet 60 27.7.</a></li><li><a href="/taso/sarja.php?sarja=M65">Masters miehet 65 28.7.</a></li><li><a href="/taso/sarja.php?sarja=M70">Masters miehet 70 27.7.</a></li><li><a href="/taso/sarja.php?sarja=N35">Masters naiset 35 28.7.</a></li><li><a href="/taso/sarja.php?sarja=N40">Masters naiset 40 27.7.</a></li><li><a href="/taso/sarja.php?sarja=N45">Masters naiset 45 28.7.</a></li><li><a href="/taso/sarja.php?sarja=N50">Masters naiset 50 27.7.</a></li><li><a href="/taso/sarja.php?sarja=N55">Masters naiset 55 28.7.</a></li><li><a href="/taso/sarja.php?sarja=N60">Masters naiset 60 27.7.</a></li><li><a href='#'>&nbsp;</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Miehet</a><ul><li><a href="/taso/kausiranking.php?ryhma=1">Ranking</a></li><li><a href="/taso/sarja.php?sarja=M6">Hiekka Open Vantaa 4.-5.5.</a></li><li><a href="/taso/sarja.php?sarja=M1">Sastamala Open 14.-16.6.</a></li><li><a href="/taso/sarja.php?sarja=M3">Kalajoki 12.-14.7.</a></li><li><a href="/taso/sarja.php?sarja=M2">Hyvinkää Open 19.-21.7.</a></li><li><a href="/taso/sarja.php?sarja=M4">Hietsu Open 2.-4.8.</a></li><li><a href="/taso/sarja.php?sarja=M5">SM Finaalit Tampere 9.-11.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Naiset</a><ul><li><a href="/taso/kausiranking.php?ryhma=2">Ranking</a></li><li><a href="/taso/sarja.php?sarja=N6">Hiekka Open Vantaa 4.-5.5.</a></li><li><a href="/taso/sarja.php?sarja=N1">Sastamala Open 14.-16.6.</a></li><li><a href="/taso/sarja.php?sarja=N3">Kalajoki 12.-14.7.</a></li><li><a href="/taso/sarja.php?sarja=N2">Hyvinkää Open 19.-21.7.</a></li><li><a href="/taso/sarja.php?sarja=N4">Hietsu Open 2.-4.8.</a></li><li><a href="/taso/sarja.php?sarja=N5">SM Finaalit Tampere 9.-11.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">JNBT miehet</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=11">Ranking</a></li><li><a href="/taso/sarja.php?sarja=MA5">TMR Invest Open Alanya 20.4.</a></li><li><a href="/taso/sarja.php?sarja=MA26">Biitsibreikki Turku Halli 18.5.</a></li><li><a href="/taso/sarja.php?sarja=MA18">Ylivieska 25.5.</a></li><li><a href="/taso/sarja.php?sarja=MA19">Arecap Open Hyvinkää 25.5.</a></li><li><a href="/taso/sarja.php?sarja=MA4">Vesivek Open Tampere 26.5.</a></li><li><a href="/taso/sarja.php?sarja=MA15">Kokkola 8.6.</a></li><li><a href="/taso/sarja.php?sarja=MA27">Turku 9.6.</a></li><li><a href="/taso/sarja.php?sarja=MA21">Sastamala Open 15.6.</a></li><li><a href="/taso/sarja.php?sarja=MA22">Nivala 16.6.</a></li><li><a href="/taso/sarja.php?sarja=MA13">Jyväskylä 29.6.</a></li><li><a href="/taso/sarja.php?sarja=MA6">Hanko 30.6.</a></li><li><a href="/taso/sarja.php?sarja=MA8">Helsinki Hietsu 4.7.</a></li><li><a href="/taso/sarja.php?sarja=MA17">Kouvola 6.7.</a></li><li><a href="/taso/sarja.php?sarja=MA03">Vaala 7.7.</a></li><li><a href="/taso/sarja.php?sarja=MA11">Kalajoki 13.7.</a></li><li><a href="/taso/sarja.php?sarja=MA16">Savonlinna 13.7.</a></li><li><a href="/taso/sarja.php?sarja=MA7">Beachbox Helsinki 21.7.</a></li><li><a href="/taso/sarja.php?sarja=MA25">Joensuu 28.7.</a></li><li><a href="/taso/sarja.php?sarja=MA9">Soisalo Open Leppävirta 3.8.</a></li><li><a href="/taso/sarja.php?sarja=MA24">Raahe 3.8.</a></li><li><a href="/taso/sarja.php?sarja=MA20">Tampere 10.8.</a></li><li><a href="/taso/sarja.php?sarja=MA14">Finaalit Hietsu 24.8.</a></li><li><a href='#'>&nbsp;</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">JNBT naiset</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=12">Ranking</a></li><li><a href="/taso/sarja.php?sarja=NA6">TMR Invest Open Alanya 20.4.</a></li><li><a href="/taso/sarja.php?sarja=NA7">Sacotec Open Beachbox Helsinki 12.5.</a></li><li><a href="/taso/sarja.php?sarja=NA27">Ylivieska 25.5.</a></li><li><a href="/taso/sarja.php?sarja=NA19">Arecap Open Hyvinkää 25.5.</a></li><li><a href="/taso/sarja.php?sarja=NA4">Vesivek Open Tampere 26.5.</a></li><li><a href="/taso/sarja.php?sarja=NA3">Kokkola 8.6.</a></li><li><a href="/taso/sarja.php?sarja=NA5">Turku 8.6.</a></li><li><a href="/taso/sarja.php?sarja=NA22">Nivala 15.6.</a></li><li><a href="/taso/sarja.php?sarja=NA21">Sastamala Open 16.6.</a></li><li><a href="/taso/sarja.php?sarja=NA13">Jyväskylä 30.6.</a></li><li><a href="/taso/sarja.php?sarja=NA8">Hanko 30.6.</a></li><li><a href="/taso/sarja.php?sarja=NA9">Helsinki Hietsu 4.7.</a></li><li><a href="/taso/sarja.php?sarja=NA17">Kouvola 6.7.</a></li><li><a href="/taso/sarja.php?sarja=NA18">Vaala 7.7.</a></li><li><a href="/taso/sarja.php?sarja=NA11">Kalajoki 13.7.</a></li><li><a href="/taso/sarja.php?sarja=NA14">Savonlinna 14.7.</a></li><li><a href="/taso/sarja.php?sarja=NA26">Beachbox Helsinki 20.7.</a></li><li><a href="/taso/sarja.php?sarja=NA25">Joensuu 27.7.</a></li><li><a href="/taso/sarja.php?sarja=NA24">Raahe 3.8.</a></li><li><a href="/taso/sarja.php?sarja=NA10">Soisalo Open Leppävirta 4.8.</a></li><li><a href="/taso/sarja.php?sarja=NA20">Tampere 10.8.</a></li><li><a href="/taso/sarja.php?sarja=NA15">Finaalit Hietsu 24.8.</a></li><li><a href="/taso/sarja.php?sarja=NA12">Kuopio </a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Pojat 18</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=13">Ranking</a></li><li><a href="/taso/sarja.php?sarja=P18-14">Joensuu 6.6.</a></li><li><a href="/taso/sarja.php?sarja=P18-1">Sastamala P18 13.6.</a></li><li><a href="/taso/sarja.php?sarja=P18-2">Eura P18 16.6.</a></li><li><a href="/taso/sarja.php?sarja=P18-16">Tampere P18 19.6.</a></li><li><a href="/taso/sarja.php?sarja=P18-3">Jyväskylä P18 1.7.</a></li><li><a href="/taso/sarja.php?sarja=P18-4">Helsinki P18 6.7.</a></li><li><a href="/taso/sarja.php?sarja=P18-9">Kalajoki P18 11.7.</a></li><li><a href="/taso/sarja.php?sarja=P18-5">Vaasa P18 14.7.</a></li><li><a href="/taso/sarja.php?sarja=P18-10">Hyvinkää P18 18.7.</a></li><li><a href="/taso/sarja.php?sarja=P18-15">Kempele P18 21.7.</a></li><li><a href="/taso/sarja.php?sarja=P18-7">Turku P18 27.7.</a></li><li><a href="/taso/sarja.php?sarja=P18-11">Kauhajoki P18 3.8.</a></li><li><a href="/taso/sarja.php?sarja=P18-6">Tampere Finaalit P18 10.-11.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Pojat 16</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=14">Ranking</a></li><li><a href="/taso/sarja.php?sarja=P16-13">Hiekka Vantaa P16 11.5.</a></li><li><a href="/taso/sarja.php?sarja=P16-6">Eura P16 15.6.</a></li><li><a href="/taso/sarja.php?sarja=p16-5">Tampere P16 18.6.</a></li><li><a href="/taso/sarja.php?sarja=P16-2">Jyväskylä P16 2.7.</a></li><li><a href="/taso/sarja.php?sarja=p16-4">Helsinki P16 6.7.</a></li><li><a href="/taso/sarja.php?sarja=P16-1">Kalajoki P16 10.7.</a></li><li><a href="/taso/sarja.php?sarja=P16-3">Vaasa P16 13.7.</a></li><li><a href="/taso/sarja.php?sarja=PU16P">Hyvinkää P16 18.7.</a></li><li><a href="/taso/sarja.php?sarja=P16-15">Kempele P16 20.7.</a></li><li><a href="/taso/sarja.php?sarja=P16-9">Kauhajoki P16 3.8.</a></li><li><a href="/taso/sarja.php?sarja=P16-7">Tampere Finaalit P16 10.-11.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Pojat 14</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=15">Ranking</a></li><li><a href="/taso/sarja.php?sarja=P14-13">Hiekka Vantaa P14 18.5.</a></li><li><a href="/taso/sarja.php?sarja=p14-6">Sastamala P14 12.6.</a></li><li><a href="/taso/sarja.php?sarja=p14-7">Eura P14 14.6.</a></li><li><a href="/taso/sarja.php?sarja=P14-9">Tampere P14 17.6.</a></li><li><a href="/taso/sarja.php?sarja=P14-1">Jyväskylä p14  3.7.</a></li><li><a href="/taso/sarja.php?sarja=P14-3">Helsinki P14 7.7.</a></li><li><a href="/taso/sarja.php?sarja=P14-4">Kalajoki P14 9.7.</a></li><li><a href="/taso/sarja.php?sarja=P14-2">Vaasa P14 12.7.</a></li><li><a href="/taso/sarja.php?sarja=P14-10">Kempele P14 19.7.</a></li><li><a href="/taso/sarja.php?sarja=p14-5">Kauhajoki P14 1.8.</a></li><li><a href="/taso/sarja.php?sarja=P14-8">Tampere Finaalit P14 10.-11.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Tytöt 18</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=16">Ranking</a></li><li><a href="/taso/sarja.php?sarja=T18-13">Hiekka Vantaa T18 27.4.</a></li><li><a href="/taso/sarja.php?sarja=T18-14">Joensuu 6.6.</a></li><li><a href="/taso/sarja.php?sarja=T18-1">Sastamala T18  13.6.</a></li><li><a href="/taso/sarja.php?sarja=T18-9">Eura T18  16.6.</a></li><li><a href="/taso/sarja.php?sarja=T18-16">Tampere T18 19.6.</a></li><li><a href="/taso/sarja.php?sarja=T18-3">Jyväskylä T18  1.7.</a></li><li><a href="/taso/sarja.php?sarja=T18-2">Helsinki T18 6.7.</a></li><li><a href="/taso/sarja.php?sarja=TU18P">Kalajoki T18 11.7.</a></li><li><a href="/taso/sarja.php?sarja=T18-4">Vaasa T18 14.7.</a></li><li><a href="/taso/sarja.php?sarja=T18-15">Kempele T18 21.7.</a></li><li><a href="/taso/sarja.php?sarja=T18-17">Turku T18 28.7.</a></li><li><a href="/taso/sarja.php?sarja=T18-11">Kauhajoki T18 3.8.</a></li><li><a href="/taso/sarja.php?sarja=T18-5">Tampere Finaalit T18 10.-11.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Tytöt 16</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=17">Ranking</a></li><li><a href="/taso/sarja.php?sarja=T16-13">Hiekka Vantaa T16 11.5.</a></li><li><a href="/taso/sarja.php?sarja=T16-7">Eura T16  15.6.</a></li><li><a href="/taso/sarja.php?sarja=T16-16">Tampere T16 18.6.</a></li><li><a href="/taso/sarja.php?sarja=T16-2">Jyväskylä T16  2.7.</a></li><li><a href="/taso/sarja.php?sarja=T16-4">Helsinki T16 7.7.</a></li><li><a href="/taso/sarja.php?sarja=T16-1">Kalajoki T16 10.7.</a></li><li><a href="/taso/sarja.php?sarja=T16-3">Vaasa T16 13.7.</a></li><li><a href="/taso/sarja.php?sarja=T16-5">Hyvinkää T16 17.7.</a></li><li><a href="/taso/sarja.php?sarja=T16-15">Kempele T16 20.7.</a></li><li><a href="/taso/sarja.php?sarja=T16P">Kauhajoki T16 2.8.</a></li><li><a href="/taso/sarja.php?sarja=T16-8">Tampere Finaalit T16 10.-11.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">Tytöt 14</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=18">Ranking</a></li><li><a href="/taso/sarja.php?sarja=T14-13">Hiekka Vantaa T14 18.5.</a></li><li><a href="/taso/sarja.php?sarja=T14-8">Sastamala T14  12.6.</a></li><li><a href="/taso/sarja.php?sarja=T14-6">Eura T14  14.6.</a></li><li><a href="/taso/sarja.php?sarja=TU14P">Tampere T14  17.6.</a></li><li><a href="/taso/sarja.php?sarja=T14-5">Jyväskylä T14  3.7.</a></li><li><a href="/taso/sarja.php?sarja=T14-3">Helsinki T14 7.7.</a></li><li><a href="/taso/sarja.php?sarja=T14">Kalajoki T14 9.7.</a></li><li><a href="/taso/sarja.php?sarja=T14-4">Vaasa T14 12.7.</a></li><li><a href="/taso/sarja.php?sarja=T14-9">Kempele T14 19.7.</a></li><li><a href="/taso/sarja.php?sarja=T14-2">Kauhajoki T14 1.8.</a></li><li><a href="/taso/sarja.php?sarja=T14-7">Tampere Finaalit T14 10.-11.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">JNCT miehet</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=22">Ranking</a></li><li><a href="/taso/sarja.php?sarja=MC7">TMR Invest Open Alanya 20.4.</a></li><li><a href="/taso/sarja.php?sarja=MC2">Biitsibreikki Turku Halli 9.5.</a></li><li><a href="/taso/sarja.php?sarja=MC14">Helsinki Hietsu 9.5.</a></li><li><a href="/taso/sarja.php?sarja=MC12">Vesivek Open Tampere 25.5.</a></li><li><a href="/taso/sarja.php?sarja=MC9">Hotel Sveitsi Open Hyvinkää 26.5.</a></li><li><a href="/taso/sarja.php?sarja=MC17">BeachBox Helsinki 8.6.</a></li><li><a href="/taso/sarja.php?sarja=MC13">Sastamala Open 14.6.</a></li><li><a href="/taso/sarja.php?sarja=MC6">Hanko 29.6.</a></li><li><a href="/taso/sarja.php?sarja=MC5">Helsinki 3.7.</a></li><li><a href="/taso/sarja.php?sarja=MC8">Kouvola 7.7.</a></li><li><a href="/taso/sarja.php?sarja=MC4">Kalajoki 12.7.</a></li><li><a href="/taso/sarja.php?sarja=MC3">Beachbox Helsinki 14.7.</a></li><li><a href="/taso/sarja.php?sarja=MC1">Turku 21.7.</a></li><li><a href="/taso/sarja.php?sarja=MC16">Karkkila 27.7.</a></li><li><a href="/taso/sarja.php?sarja=MC10">Kauhajoki 4.8.</a></li><li><a href="/taso/sarja.php?sarja=MC15">BeachBox Helsinki 11.8.</a></li><li><a href="/taso/sarja.php?sarja=MC11">Finaalit Hietsu 24.8.</a></li></ul></li><li><a href="" onclick="event.preventDefault();$(this).parent().find('>ul').toggle();return false;">JNCT naiset</a><ul class="cssmenucolumns"><li><a href="/taso/kausiranking.php?ryhma=23">Ranking</a></li><li><a href="/taso/sarja.php?sarja=NC10">Biitsibreikki Turku Halli 4.5.</a></li><li><a href="/taso/sarja.php?sarja=NC2">Helsinki Hietsu 9.5.</a></li><li><a href="/taso/sarja.php?sarja=NC17">Sacotec Open Beachbox Helsinki 19.5.</a></li><li><a href="/taso/sarja.php?sarja=NC12">Vesivek Open Tampere 25.5.</a></li><li><a href="/taso/sarja.php?sarja=NC9">Hotel Sveitsi Open Hyvinkää 26.5.</a></li><li><a href="/taso/sarja.php?sarja=NC3">Beachbox Helsinki 9.6.</a></li><li><a href="/taso/sarja.php?sarja=NC13">Sastamala Open 14.6.</a></li><li><a href="/taso/sarja.php?sarja=NC6">Hanko 29.6.</a></li><li><a href="/taso/sarja.php?sarja=NC5">Helsinki 3.7.</a></li><li><a href="/taso/sarja.php?sarja=NC8">Kouvola 7.7.</a></li><li><a href="/taso/sarja.php?sarja=NC4">Kalajoki 12.7.</a></li><li><a href="/taso/sarja.php?sarja=NC14">Beachbox Helsinki 13.7.</a></li><li><a href="/taso/sarja.php?sarja=NC1">Turku 20.7.</a></li><li><a href="/taso/sarja.php?sarja=NC7">Karkkila 27.7.</a></li><li><a href="/taso/sarja.php?sarja=NC16">Kauhajoki 4.8.</a></li><li><a href="/taso/sarja.php?sarja=NC15">Beachbox Open Helsinki 10.8.</a></li><li><a href="/taso/sarja.php?sarja=NC11">Finaalit Hietsu 24.8.</a></li><li><a href="/taso/sarja.php?sarja=NC18">Kuopio </a></li><li><a href='#'>&nbsp;</a></li>  
+ </ul>
+    <li><a href='/taso/arkisto.php'>Arkisto</a></li>
+        <li class='highlight' id='menulogin'>Kirjaudu</li>
+        </ul>
+      </ul>
+</div>
+
+<h1>Beach Volley 2024 tulospalvelu</h1><div id='maincontent' style=''><div class="sidebar" style="margin-top:-45px">
+        <div class="box"><h2>Ajankohtaista</h2></div></div><div class="aleft"><h1 style="text-align:justify"><span style="font-size:26.66px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif"><strong><strong>Beach volleyn tulospalvelu</strong></strong></span></span></span></h1>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Tervetuloa beach volleyn tulospalvelusivuille. T&auml;&auml;lt&auml; l&ouml;yd&auml;t tiedot kaikkien kiertueiden turnauksista ja p&auml;&auml;set ilmoittautumaan turnauksiin. Alla my&ouml;s t&auml;rke&auml;&auml; tietoa turnauksiin osallistumista koskien.</span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif"><strong>Biitsipassi</strong></span></span></span></div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Ennen ilmoittautumista pelaajan tulee hankkia<strong>&nbsp;</strong>Biitsipassi <a href="https://info.suomisport.fi/" target="_blank">Suomisportin&nbsp;kautta</a>. Vuonna 2023 hankittu biitsipassi on voimassa 14.4.2024 saakka. Kauden 2024 biitsipassin myynti avautuu 15.4.2024.</span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Biitsipassi tarvitaan aikuisten SM-kiertueen, JNBT- ja JNCT-kiertueen, hallikiertueiden sek&auml; Juniorien&nbsp;SM-kiertueen turnauksissa. Kes&auml;n 2024 Masters-turnauksia sarjoissa M35-M70 ja N35-N60&nbsp;pelaavilla pelaajilla tulee olla voimassa oleva biitsipassi tai kaudelle 2023-2024 hankittu lentopallon aikuisten kuntopassi tai&nbsp;sit&auml; korkeampi pelipassi, joilla voi pelata my&ouml;s mastersien SM-biitsit 2024.</span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Sarjoissa M75-M84 ja N65-N75 pelipassin hankintaa ei edellytet&auml;, vaan pelipassin hinta sis&auml;ltyy sarjamaksuun. Miehiss&auml; 75 vuotta ja naisissa 65 vuotta t&auml;ytt&auml;nyt tai vuonna 2024 t&auml;ytt&auml;v&auml; pelaaja ei my&ouml;sk&auml;&auml;n tarvitse pelipassia pelatessaan niiss&auml; nuoremmissa ik&auml;luokissa, joissa pelipassi vaaditaan.</span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Sarjakaudella hankittu Kertapassi ei oikeuta pelaamaan biitsin SM-turnausta.</span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif"><strong><span style="color:#cc0000">Lisenssitietojen p&auml;ivittyminen Torneopaliin saattaa kest&auml;&auml; vuorokauden.</span></strong></span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif"><strong>Pelaajaprofiili</strong></span></span></span></div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Joukkueen kaikkien&nbsp;pelaajien tulee luoda pelaajaprofiili Torneopaliin&nbsp;<a href="http://beachvolley.torneopal.fi/taso/pelaajalogin.php" target="_blank"><strong>kirjaudu</strong></a>-kohdasta. T&auml;m&auml;n j&auml;lkeen toinen pelaajista k&auml;y ilmoittamassa joukkueen kilpailuun mukaan ja samalla valitsee parinsa.</span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left">
+<p><span style="font-size:16px"><strong>Kilpailus&auml;&auml;nn&ouml;t 2024</strong></span></p>
+
+<p><span style="font-size:16px">Voimassa olevat kilpailus&auml;&auml;nn&ouml;t l&ouml;ytyv&auml;t&nbsp;<strong><a href="https://www.lentopallo.fi/beach-volley-kilpailusaannot/">Lentopalloliiton sivuilta</a>.</strong></span></p>
+</div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif"><strong>Rankingpistetaulukko</strong></span></span></span></div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Ajantasainen rankingpistetaulukko l&ouml;ytyy&nbsp;<strong><a href="https://www.lentopallo.fi/sm-kiertueet/rankingpisteet/">Lentopalloliiton sivuilta.</a></strong></span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif"><strong><a href="https://www.lentopallo.fi/sm-kiertueet/masters-biitsi/">Masters biitsi</a></strong></span></span></span></div>
+
+<div style="text-align:left">&nbsp;</div>
+
+<div style="text-align:left">
+<div><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif"><strong>Mobiilip&ouml;yt&auml;kirja</strong></span></span></span></div>
+
+<div><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Kaikkissa turnauksissa on k&auml;yt&ouml;ss&auml; mobiilip&ouml;yt&auml;kirja. Mobiilip&ouml;yt&auml;kirjaan&nbsp;kirjaudutaan <a href="https://beachvolley.torneopal.fi/taso/beachlaskuri.php" target="_blank"><strong>t&auml;&auml;lt&auml;</strong></a>.</span></span></span></div>
+</div>
+
+<div>&nbsp;</div>
+
+<div><span style="font-size:16px"><span style="color:#500050"><span style="font-family:Arial,Helvetica,sans-serif"><strong>Kiertuep&auml;&auml;llik&ouml;t</strong></span></span></span></div>
+
+<div>&nbsp;</div>
+
+<div><strong><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">Juniorien- ja&nbsp;</span></span>Aikuisten SM-kiertue &amp; Halli-kiertueet:</span></strong></div>
+
+<div>
+<div><span style="font-size:16px">Jyrki Nurminen / JNBV</span></div>
+
+<div style="text-align:left"><span style="font-size:16px"><a href="mailto:kiertueet@jnbv.fi">kiertueet@jnbv.fi</a><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">&nbsp;tai 044-0864280</span></span></span></div>
+</div>
+
+<div>&nbsp;</div>
+
+<div><strong><span style="font-size:16px">JNBT- ja JNCT-kiertueet:</span></strong></div>
+
+<div><span style="font-size:16px">Jyrki Nurminen / JNBV</span></div>
+
+<div style="text-align:left"><span style="font-size:16px"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif"><a href="mailto:jyrki.nurminen@jnbv.fi" target="_blank">jyrki.nurminen@jnbv.fi</a>&nbsp;tai&nbsp;044-0864280</span></span></span></div>
+
+<div style="text-align:left"><span style="font-size:16px"><a href="https://www.jnbv.fi/tour"><span style="color:#222222"><span style="font-family:Arial,Helvetica,sans-serif">JNBT-tour</span></span></a></span></div>
+</div></div>
+</div>
+			</div>
+<div style='clear:both'></div>
+	</div>
+</div>
+</div><div class="push"></div>
+
+</div>
+
+</div>
+<div id="footer" class='noprint'>
+<div class="main">
+	<div class="footer">
+		<div class="copyright">Copyright &copy; Suomen Lentopalloliitto Ry<br>
+Tulospalvelun tekninen toteutus <a target='_blank' rel='noopener' href="http://www.torneopal.fi">TorneoPal</a></div>
+
+<div class="footer-links">
+<a href="#top" class="first">Takaisin ylös</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="http://www.lentopalloliitto.fi/urheilua/lentopalloliitto/yhteystiedot-laskutusosoite-ja-palautelomake.html">Anna palautetta</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="http://www.lentopalloliitto.fi/urheilua/lentopalloliitto/henkilokunta.html">Ota yhteyttä</a><br/>
+Kilpailupäällikkö Jari Lankinen - jari.lankinen(at)lentopalloliitto.fi
+</div>
+	</div>
+</div>
+</div>
+
+<!--
+<script src="//www.powercup.info/media/layout/js/jquery.cycle2.min.js"></script>
+<script src="//www.powercup.info/media/layout/js/jquery.cycle2.carousel.min.js"></script>
+
+<script src="//www.powercup.info/media/layout/fancybox/source/jquery.fancybox.pack.js"></script>
+<script src="//www.powercup.info/media/layout/js/jquery.hoverintent.js"></script>
+<script src="//www.powercup.info/media/layout/js/javascript.js"></script>
+-->
+	
+	<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-47502778-1']);
+  _gaq.push(['_trackPageview', '/pelaa/otteluohjelma-ja-tulospalvelu.html']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1863855-20', 'turnauspalvelu.fi');
+  ga('send', 'pageview');
+
+</script>
+</body>
+
+</html>
