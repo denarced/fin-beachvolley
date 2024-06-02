@@ -12,7 +12,7 @@ while : ; do
     clear
     date -Iseconds
 
-    coverage run -m pytest -vv -x --ff
+    coverage run -m pytest -x --ff
     coverage report
     coverage html
     inotifywait -e modify ./*.py

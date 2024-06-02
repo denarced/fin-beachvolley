@@ -1,11 +1,13 @@
 """Parse Finnish beach volleyball site to scrape data."""
 
+import argparse
 import datetime
-import logging
 import re
 import typing
 
+import requests
 from bs4 import BeautifulSoup
+
 
 date_pattern = re.compile(r"""[0-3]?[0-9]\.(?:1?[0-9])?(?:\.[0-9]{2,4})?""")
 
@@ -28,6 +30,8 @@ def parse_event_anchor(anchor) -> list:
         return []
     start_index = date_pattern.search(text).start()
     primary = text[:start_index].strip()
+    if len(date_range) == 1:
+        date_range = date_range + date_range
     return [extract_series(anchor)] + [primary] + date_range
 
 
@@ -74,14 +78,6 @@ def parse_html(html, limit, search_words: typing.Iterable | None):
     return events if limit < 0 else events[:limit]
 
 
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()
-
-
 def parse_date(text: str) -> str:
     stripped = text.strip(" .")
     pieces = stripped.split(".")
@@ -99,7 +95,6 @@ def parse_date(text: str) -> str:
 
 def parse_date_range(text: str) -> list:
     found = date_pattern.findall(text)
-    logging.error("Found date range: %s", found)
     if not found:
         return []
     piece_lists = []
@@ -129,3 +124,116 @@ def find_events(html, limit, search_words: typing.Iterable | None, order_by: str
     if order_by == "date":
         parsed.sort(key=lambda e: (e[2], e[0], e[1]))
     return parsed
+
+
+def parse_filters(values):
+    filters = []
+    for each in values:
+        pieces = [e.strip() for e in each.split(",")]
+        pieces = [e for e in pieces if e != ""]
+        if pieces:
+            filters.append(pieces)
+    return filters
+
+
+def add_gaps(events, index):
+    pairs = []
+    for idx in range(0, len(events) - 1, 1):
+        first = datetime.date.fromisoformat(events[idx][index])
+        second = datetime.date.fromisoformat(events[idx + 1][index])
+        if (second - first).days <= 1:
+            if pairs and pairs[-1][1] == idx:
+                pairs[-1][1] = idx + 1
+            else:
+                pairs.append([idx, idx + 1])
+    gapped = []
+    inserted = set()
+    for each in pairs:
+        alpha = each[0]
+        if alpha > 0:
+            inserted.add(alpha)
+        omega = each[1] + 1
+        if omega < len(events):
+            inserted.add(omega)
+    for idx, each in enumerate(events):
+        if idx in inserted:
+            gapped.append(None)
+        gapped.append(each)
+    return gapped
+
+
+def format_date(date):
+    return datetime.date.fromisoformat(date).strftime("%a %Y-%m-%d")
+
+
+def create_past_filter(today, enabled):
+    def filter_nothing(events):
+        return events
+
+    def filter_past(events):
+        filtered = []
+        for each in events:
+            if datetime.date.fromisoformat(each[3]) >= today:
+                filtered.append(each)
+        return filtered
+
+    return filter_past if enabled else filter_nothing
+
+
+def main(args):
+    res = requests.get(args.url, timeout=10)
+    res.raise_for_status()
+    events = find_events(
+        res.text, args.limit, parse_filters(args.include), "date" if args.sort_by_date else None
+    )
+    filter_by_date = create_past_filter(datetime.date.today(), not args.include_past)
+    events = add_gaps(
+        filter_by_date(events),
+        2,
+    )
+    for each in events:
+        if each is None:
+            print(*(4 * ["|"]), sep="\t")
+            continue
+        print(format_date(each[2]), format_date(each[3]), each[1], each[0], sep="\t")
+
+
+def cli():
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument(
+        "--url",
+        "-u",
+        help="URL for beach volleyball site to scrape.",
+        default="https://beachvolley.torneopal.fi",
+    )
+    parser.add_argument(
+        "--limit",
+        "-l",
+        type=int,
+        help="Limit events to specific count. <0 means there's no limit.",
+        default=-1,
+    )
+    parser.add_argument(
+        "--include",
+        "-i",
+        nargs="+",
+        help=(
+            "Only include events where all comma separated words are "
+            'found.  E.g. "t18,07" would roughly only include events '
+            "in T18 series taking place in July."
+        ),
+    )
+    parser.add_argument(
+        "--sort-by-date",
+        "-d",
+        action="store_true",
+        help="When set, results are sorted by date in ascending order (oldest first).",
+    )
+    parser.add_argument(
+        "--include-past", "-p", action="store_true", help="When set, include past events."
+    )
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    main(cli())
