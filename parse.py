@@ -127,6 +127,7 @@ def find_events(html, limit, search_words: typing.Iterable | None, order_by: str
 
 
 def parse_filters(values):
+    values = [] if values is None else values
     filters = []
     for each in values:
         pieces = [e.strip() for e in each.split(",")]
