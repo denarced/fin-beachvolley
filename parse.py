@@ -8,7 +8,6 @@ import typing
 import requests
 from bs4 import BeautifulSoup
 
-
 date_pattern = re.compile(r"""[0-3]?[0-9]\.(?:1?[0-9])?(?:\.[0-9]{2,4})?""")
 
 
@@ -69,7 +68,8 @@ def contains(event: list[str], search_words: list[list[str]] | None):
 
 def parse_html(html, limit, search_words: typing.Iterable | None):
     soup = BeautifulSoup(html, "html.parser")
-    anchors = soup.find_all("a")
+    menu = soup.find("div", id="cssmenu")
+    anchors = menu.find_all("a")
     events = []
     for each in anchors:
         event = parse_event_anchor(each)
@@ -114,6 +114,7 @@ def parse_date_range(text: str) -> list:
 
 def extract_series(event_anchor) -> str | None:
     event_li = event_anchor.find_parent("li")
+    assert event_li is not None, f'Can\'t find parent for "{event_anchor}"'
     event_ul = event_li.find_parent("ul")
     series_li = event_ul.find_parent("li")
     return series_li.a.string.strip()
