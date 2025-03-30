@@ -20,11 +20,11 @@ def strip(value: str | None) -> str | None:
     return stripped
 
 
-def parse_event_anchor(anchor) -> list:
+def parse_event_anchor(this_year: int, anchor) -> list:
     text = strip(anchor.string)
     if text is None:
         return []
-    date_range = parse_date_range(text)
+    date_range = parse_date_range(this_year, text)
     if not date_range:
         return []
     start_index = date_pattern.search(text).start()
@@ -66,19 +66,19 @@ def contains(event: list[str], search_words: list[list[str]] | None):
     return False
 
 
-def parse_html(html, limit, search_words: typing.Iterable | None):
+def parse_html(this_year: int, html, limit, search_words: typing.Iterable | None):
     soup = BeautifulSoup(html, "html.parser")
     menu = soup.find("div", id="cssmenu")
     anchors = menu.find_all("a")
     events = []
     for each in anchors:
-        event = parse_event_anchor(each)
+        event = parse_event_anchor(this_year, each)
         if event and contains(event, search_words):
             events.append(event)
     return events if limit < 0 else events[:limit]
 
 
-def parse_date(text: str) -> str:
+def parse_date(this_year: int, text: str) -> str:
     stripped = text.strip(" .")
     pieces = stripped.split(".")
     date_pieces = []
@@ -87,19 +87,19 @@ def parse_date(text: str) -> str:
         if index < 2:
             date_pieces.insert(0, f"{numeric:02d}")
         elif numeric < 1000:
-            date_pieces.insert(0, 1000 * (datetime.date.today().year // 1000) + numeric)
+            date_pieces.insert(0, 1000 * (this_year // 1000) + numeric)
         else:
             date_pieces.insert(0, numeric)
     return date_pieces
 
 
-def parse_date_range(text: str) -> list:
+def parse_date_range(this_year: int, text: str) -> list:
     found = date_pattern.findall(text)
     if not found:
         return []
     piece_lists = []
     for each in found:
-        piece_lists.append(parse_date(each))
+        piece_lists.append(parse_date(this_year, each))
     piece_lists = piece_lists[::-1]
     result = []
     for index, each in enumerate(piece_lists):
@@ -107,7 +107,7 @@ def parse_date_range(text: str) -> list:
             assert index > 0, index
             each.insert(0, piece_lists[index - 1][1])
         if len(each) < 3:
-            each.insert(0, datetime.date.today().year)
+            each.insert(0, this_year)
         result.insert(0, "-".join(str(e) for e in each))
     return result
 
@@ -120,8 +120,8 @@ def extract_series(event_anchor) -> str | None:
     return series_li.a.string.strip()
 
 
-def find_events(html, limit, search_words: typing.Iterable | None, order_by: str):
-    parsed = parse_html(html, limit, search_words)
+def find_events(this_year: int, html, limit, search_words: typing.Iterable | None, order_by: str):
+    parsed = parse_html(this_year, html, limit, search_words)
     if order_by == "date":
         parsed.sort(key=lambda e: (e[2], e[0], e[1]))
     return parsed
@@ -185,8 +185,13 @@ def create_past_filter(today, enabled):
 def main(args):
     res = requests.get(args.url, timeout=10)
     res.raise_for_status()
+    this_year = datetime.date.today().year
     events = find_events(
-        res.text, args.limit, parse_filters(args.include), "date" if args.sort_by_date else None
+        this_year,
+        res.text,
+        args.limit,
+        parse_filters(args.include),
+        "date" if args.sort_by_date else None,
     )
     filter_by_date = create_past_filter(datetime.date.today(), not args.include_past)
     events = add_gaps(

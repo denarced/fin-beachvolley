@@ -14,7 +14,7 @@ from parse import (
 def test_parse_html():
     with open("testdata/page.html", encoding="utf-8") as file:
         result = parse_html(
-            file.read(), -1, [["miehet 55"], ["miehet", "kalajoki"], ["tytöt 18", "finaalit"]]
+            2024, file.read(), -1, [["miehet 55"], ["miehet", "kalajoki"], ["tytöt 18", "finaalit"]]
         )
     assert result == [
         ["Masters", "Masters miehet 55", "2024-07-28", "2024-07-28"],
@@ -38,7 +38,7 @@ def test_parse_html():
     ],
 )
 def test_parse_date_range(text, expected):
-    assert parse_date_range(text) == expected
+    assert parse_date_range(2024, text) == expected
 
 
 @pytest.mark.parametrize(
@@ -60,6 +60,7 @@ def test_contains(event, search_words, expected):
 def test_find_events():
     with open("testdata/page.html", encoding="utf-8") as file:
         result = find_events(
+            2024,
             file.read(),
             -1,
             [["miehet 55"], ["miehet", "kalajoki"], ["tytöt 18", "finaalit"]],

@@ -1,9 +1,26 @@
+[project]
+name = "fin-beachvolley"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4==4.12.3",
+    "requests==2.32.3",
+]
+
 [tool.ruff]
 
 line-length = 100
-target-version = "py310"
+target-version = "py312"
 
 [tool.ruff.lint]
 
 select = ["A", "B", "C", "D", "E", "F", "I", "N", "PL", "R", "UP", "W"]
 ignore = ["D100", "D101", "D102", "D103", "D105", "D107", "D203", "D213", "PLR2004"]
+
+[dependency-groups]
+dev = [
+    "autoimport==1.5.0",
+    "coverage==7.5.3",
+    "pytest==8.2.1",
+    "ruff==0.4.7",
+]
